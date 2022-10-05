@@ -254,7 +254,7 @@ EdibleQueue.prototype.print = function() {
     for (var i = 0; i < this.items.length; i++) {  
       prin += ("index: " + i + " / Edible: " + this.items[i].edible + " / Category: " + this.items[i].category+ "\n");
 }
-console.log(prin);
+return prin;
 };
   
 
@@ -295,9 +295,10 @@ this.items.shift();
 }
 }
 
+
 // 4. Print the final contents to the console, showing that your code works.
 eddie.dequeueAll();
-console.log("eddie: " + eddie.print());
+console.log("eddie: " + eddie.print() + "\n");
 console.log("fruits: " + fruits.print());
 console.log("veggies: " + veggies.print());
 
