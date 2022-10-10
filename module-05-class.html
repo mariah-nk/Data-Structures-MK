@@ -52,22 +52,23 @@
       var head = null;
 
 
-      class Node {
-        constructor(val) {
-          this.val = val;
-          this.next = null;
-        }
-      }
+      // class Node {
+      //   constructor(val) {
+      //     this.val = val;
+      //     this.next = null;
+      //   }
+      // }
       this.append = function (element) {
         // add a new item to the end of the list
         // ...
         var node = new Node(element);
+        var current = head;
         if (head === null) {
           head = node;
         }
         else {
-          var curent = head;
-          while (current.next !== null) {
+          current = head;
+          while (current.next) {
             current = current.next;
           }
           //current is now the last node is in the list
@@ -79,21 +80,19 @@
       this.insert = function (position, element) {
         // insert a new item at a specific location
         // ...
-        if (position < 0 || position > length) {
-          // invalid postion
-          return false;
-        }
-        else {
+        if (position >= 0 || position <= length) {
           // Determine valid position
           var node = new Node(element);
+          var current = head;
+          var previous = 0;
+          var index = 0;
+
           if (position === 0) {
-            node.next = head;
+            node.next = current;//next
             head = node;
           }
           else {
-            var index = 0;
-            var previous = null;
-            var current = head;
+    
             while (index++ < position) {
               previous = current;
               current = current.next;
@@ -102,34 +101,40 @@
             node.next = current;
             previous.next = node;
 
-          }
+        }
           length++;
           return true;
+        }
+        else {
+          return false;
+
         }
       };
 
       this.removeAt = function (position) {
         // remove an element from a specific location
         // ...
-        if (position < 0 || position >= length) {
-          // invalid postion
-          return null;
-        }
-        else {
-          var currrent = head;
+        if (position > -1 && position < length) {
+          
+          var current = head;
+          var previous = 0;
+          var index = 0;
+
           if (position === 0) {
-            head = heqad.next;
+            head = current.next;
           }
           else {
-            var index = 0;
-            var previous = null;
             while (index++ < position) {
-              previous = currrent;
-              current = currrent.next;
+              previous = current;
+              current = current.next;
+            }
+              previous.next = current.next
             }
             length--;
             return current.element;
           }
+          else {
+            return null;
         }
       };
 
@@ -137,11 +142,32 @@
         // remove a specific element from the list
         // ...
         // like append but getting rid of
+        var current = head;
+        var previous;
+        if (current.element === element) {
+
+         head = current.next;
+}
+else {
+  while(current.element != element) {
+    previous = current;
+    current = current.next;
+  }
+  previous.next = current.next;
+}
+length--;
       };
 
       this.indexOf = function (element) {
         // return the index of an element in the list
         // ...
+        var count = 0;
+        var current = head;
+        while (current != null && current.element != element){
+          current = current.next;
+          count++;
+        }
+        return count;
       };
 
       this.isEmpty = function () {
@@ -187,25 +213,72 @@
     // 1. Write pseudo code (meaning; use comments) to describe how you would
     //    implement the append method. HINT: What two scenarios can you distinguish?
 
+// the new list calls append with an element of my choice as an argument
+
     // 2. Translate your pseudo code into actual code and test it.
     //    HINT: Use list.print() to test your code.
 
-    // 3. Repeat (1) and (2) for insert.
+    list.append(6);
+    list.append(7);
+    list.append(8);
+    list.append(9);
+    list.append(10);
+    list.append(11);
+    list.append(12);
+    list.print();
 
-// list.append(1)
-//print
+    // 3. Repeat (1) and (2) for insert.
+// I would call insert on list and pass in a position where
+// the value will be placed in the list, and a value as the element to be added
+// at index 2: the number 100 will appear now
+
+list.insert(2,100);
+    list.print();
 
     // 4. Repeat (1) and (2) for removeAt.
 
+// I will call removeAt on the list in the fourth position (index of 3), 8 should be removed
+
+list.removeAt(3);
+list.print();
+
     // 5. Repeat (1) and (2) for remove.
+ 
+    // I will ask the list to remove the element (6) from it's place. 
+    // This is the first element in the list 
+    // Then I will remove the element (100)
+    
+    list.remove(6);
+    list.print();
+    list.remove(100);
+    list.print();
 
     // 6. Repeat (1) and (2) for indexOf.
 
+// I will call indexOf for the elements 10 and 11,
+// I shoudld get 2 & 3 respectively
+
+console.log("10's index: " + list.indexOf(10));
+console.log("11's index: " + list.indexOf(11));
+
     // 7. Repeat (1) and (2) for isEmpty.
+// this will return a bool value for whether the list has or does not have elements
+// I also will make a new empty list that should return true
+
+console.log("same list, isEmpty() ?: " + list.isEmpty());
+var newList = new LinkedList();
+console.log("new list, isEmpty() ?: " + newList.isEmpty());
 
     // 8. Repeat (1) and (2) for size.
+// this should return the length of the list, which should be 5
+console.log("List size: " + list.size());
+
 
     // 9. Repeat (1) and (2) for getHead.
+
+    // this is getting the first node in the list
+    // to get the specific element to output, I add that specification with .element
+    console.log("getHead(): " + list.getHead().element);
 
 
 
@@ -237,7 +310,48 @@
 
     function isEqual(list1, list2) {
       // implementation
-    }
+      
+      while (list1 != null && list2 != null){
+        var h = list1.head;
+        var g = list2.head;
+
+          if (h !== g){
+            
+            return false;
+            }
+            else {
+              h = list1.next;
+              g = list2.next;
+            }
+            return (h === null && g === null);
+          }
+        }
+
+    // creating lists to compare
+
+    var e = new LinkedList();
+
+    var x = new LinkedList();
+    x.append(1);
+    x.append(2);
+    x.append(3);
+  
+    var y = new LinkedList();
+    y.append(1);
+    y.append(2);
+    y.append(3);
+
+    var z = new LinkedList();
+    z.append(2);
+    z.append(3);
+
+    console.log("Are x & y equal?: " + isEqual(x, y));
+    console.log("Are y & x equal?: " + isEqual(y, x));
+    console.log("Are y & z equal?: " + isEqual(y, z));
+    console.log("Are z & e equal?: " + isEqual(z, e));
+
+    console.log(x);
+    console.log(y);
 
     // 2. Implement the stack data structure using a linked list instead of an
     //    array. Use the prototype.
@@ -255,7 +369,6 @@
 </head>
 
 <body>
-  See console!
 </body>
 
 </html>
