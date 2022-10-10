@@ -308,24 +308,31 @@ console.log("List size: " + list.size());
     // 1. Write a function that takes two linked lists as input and returns true if
     //    they have the same elements, and false otherwise. Test your code.
 
+    // function isEqual(list1, list2) {
+    //   // implementation
+      
+    //   while (list1 != null && list2 != null){
+
+    //       if (list1 !== list2){
+            
+    //         return false;
+    //         }
+    //         else {
+    //           h = list1.next;
+    //           g = list2.next;
+    //         }
+    //         return (h === null && g === null);
+    //       }
+    //     }
+
+
     function isEqual(list1, list2) {
       // implementation
       
-      while (list1 != null && list2 != null){
-        var h = list1.head;
-        var g = list2.head;
+     return (list1 === list2);
 
-          if (h !== g){
-            
-            return false;
-            }
-            else {
-              h = list1.next;
-              g = list2.next;
-            }
-            return (h === null && g === null);
-          }
-        }
+    }
+
 
     // creating lists to compare
 
@@ -359,6 +366,88 @@ console.log("List size: " + list.size());
     function Stack() {
       // put properties here (the linked list)
       // do NOT use this.items = [];
+
+      
+
+        function Node(element) {
+        this.element = element;
+        this.next = null;
+      }
+      var length = 0;
+      var head = null;
+
+
+// methods
+Stack.prototype.push = function(element){
+          // Determine valid position
+          var node = new Node(element);
+          var current = head;
+          var previous = 0;
+          var index = 0;
+          var position = 0;
+
+          if (position === length - 1) {
+            node.next = current;//next
+            head = node;
+          }
+          else {
+    
+            while (index++ < length - 1) {
+              previous = current;
+              current = current.next;
+            }
+            // make the node point
+            node.next = current;
+            previous.next = node;
+
+        }
+          length++;
+          return true;
+        };
+        
+
+Stack.prototype.pop = function(){
+        // remove an element from a specific location
+        // ...
+        
+          
+          var current = head;
+          var previous = 0;
+          var index = 0;
+          var position = 0;
+
+  
+            while (index++ < length - 1) {
+              previous = current;
+              current = current.next;
+            }
+              previous.next = current.next
+            
+            length--;
+            return current.element;
+        };
+      
+
+Stack.prototype.peek = function(){
+  return head;
+}
+
+Stack.prototype.isEmpty = function(){
+  return length === 0;
+}
+
+Stack.prototype.size = function(){
+  return length;
+}
+
+Stack.prototype.clear = function(){
+  head = null;
+}
+
+Stack.prototype.print = function(){
+  console.log("print");
+}
+
     }
 
 // add methods through the prototype
