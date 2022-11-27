@@ -29,17 +29,29 @@ console.log("Tree terminology");
 //------------------------------------//
 // The binary and binary search trees //
 //------------------------------------//
+
+// 1. Finish the implementation of the tree data structure above using the
+//    prototype (as opposed to the version we wrote in class). Note that we
+//    have helper functions that we have to deal with, and we simply make them
+//    part of the prototype but prepend them with _, e.g., _insertNode above.
+//    This is a common convention/solution. Programmers using a tree object are
+//    not supposed to use _ methods (or properties) directly.
+
 console.log("The binary and binary search trees");
 
 function Node(key) {
+  var key;
   this.key = key;
-  this.left = null;
-  this.right = null
+  var left = null;
+  this.left = left;
+  var right = null;
+  this.right = right;
 }
 
 function BinarySearchTree() {
   // the root node
-  this.root = null;
+  var root = null;
+  this.root = root;;
 }
 
 // helper functions
@@ -73,7 +85,7 @@ BinarySearchTree.prototype._insertNode = function(node, newNode) {
 BinarySearchTree.prototype.insert = function(key) {
   // insert new key in the tree
   var newNode = new Node(key);
-  if (root === null) {
+  if (this.root === null) {
     // no nodes yet
     root = newNode;
   }
@@ -83,16 +95,136 @@ BinarySearchTree.prototype.insert = function(key) {
   }
 };
 
-// 1. Finish the implementation of the tree data structure above using the
-//    prototype (as opposed to the version we wrote in class). Note that we
-//    have helper functions that we have to deal with, and we simply make them
-//    part of the prototype but prepend them with _, e.g., _insertNode above.
-//    This is a common convention/solution. Programmers using a tree object are
-//    not supposed to use _ methods (or properties) directly.
+BinarySearchTree.prototype._searchNode = function(node, key) {
+    if (node === null) {
+      return false;
+    }
+    if (key < node.key) {
+      return _searchNode(node.left, key)
+    }
+    else if (key > node.key) {
+      return _searchNode(node.right, key)
+    }
+    else return true;
+  }
+
+  BinarySearchTree.prototype.search = function(key) {
+    // search for key and return true if found, false otherwise
+    return _searchNode(root, key);
+  };
+
+  BinarySearchTree.prototype._inOrderTraverse = function(node, callback) {
+    if (node !== null) {
+      _inOrderTraverse(node.left, callback);
+      callback(node.key);
+      _inOrderTraverse(node.right, callback);
+    }
+  }
+
+  BinarySearchTree.prototype.inOrderTraverse = function(callback) {
+    // visit all nodes of the tree using in-order traversal
+    // call callback with each key encountered
+    return this.inOrderTraverse;
+  };
+
+  BinarySearchTree.prototype._preOrderTraverse = function(node, callback) {
+  if (node !== null) {
+    callback(node.key);
+    _preOrderTraverse(node.left, callback);
+    _preOrderTraverse(node.right, callback);
+  }
+}
+
+  // specific location in minds
+  BinarySearchTree.prototype.preOrderTraverse = function(callback) {
+    // visit all nodes of the tree using pre-order traversal
+    // call callback with each key encountered
+    return _preOrderTraverse(root, callback);
+  };
+
+  BinarySearchTree.prototype._postOrderTraverse = function(node, callback) {
+  if (node !== null) {
+    _postOrderTraverse(node.left, callback);
+    _postOrderTraverse(node.right, callback);
+    callback(node.key);
+  }
+}
+
+BinarySearchTree.prototype.postOrderTraverse = function(callback) {
+    // visit all nodes of the tree using post-order traversal
+    // call callback with each key encountered
+    return _postOrderTraverse(root, callback);
+  };
+
+  BinarySearchTree.prototype._minNode = function(node, callback) {
+  if (node) {
+    while (node && node.left !== null){
+      node = node.left;
+    }
+    return node.key;
+  }
+  return null;
+}
+
+
+BinarySearchTree.prototype.min = function() {
+    // return the minimum key in the tree
+    return _minNode(root);
+  };
+
+  BinarySearchTree.prototype._maxNode = function(node, callback) {
+  if (node) {
+    while (node && node.right !== null){
+      node = node.right;
+    }
+    return node.key;
+  }
+  return null;
+}
+
+BinarySearchTree.prototype.max = function() {
+    // return the maximum key in the tree
+    return _maxNode(root);
+  };
+
+  // this.remove = function() {
+  //   // removes the key from the tree
+
+  // };
+
+  BinarySearchTree.prototype.print = function() {
+    BinarySearchTree.prototype._print = function(node) {
+      // check if not is not null
+      if (node !== null) {
+        // text for left child
+        var leftChild = node.left !== null ? node.left.key : "None";
+        // text for right child
+        var rightChild = node.right !== null ? node.right.key : "None";
+        // print output
+        console.log(leftChild + " <-- " + node.key + " --> " + rightChild);
+        // traverse left
+        print(node.left);
+        // traverse right
+        print(node.right);
+      }
+    }
+    console.log("===tree===");
+    this._print(root);
+    console.log("==========");
+  };
 
 // 2. Run some tests that show that your code works.
 
-
+var tree = new BinarySearchTree();
+tree.insert(11);
+tree.insert(7);
+tree.insert(15);
+tree.insert(1400);
+tree.insert(305);
+tree.insert(150);
+tree.insert(1500000000);
+// copy rest from book
+tree.print();
 
 //----------------//
 // Tree traversal //
@@ -107,9 +239,15 @@ function printNode(value) {
 //    implementation with the printNode() function given above.
 //    NOTE: in-order means all keys are visited in sorted order.
 
+console.log("in order");
+tree.inOrderTraverse(printNode);
+
 // 2. Implement pre-order traversal using the prototype. Test your
 //    implementation with the printNode() function given above.
 //    NOTE: pre-order means a node is visited prior to its descendants.
+
+console.log("pre order");
+tree.preOrderTraverse(printNode);
 
 // 3. Implement post-order traversal using the prototype. Test your
 //    implementation with the printNode() function given above.
