@@ -7,7 +7,7 @@
 <script>
 
   // mariah kelly
-  
+
 //-------------------//
 // Graph terminology //
 //-------------------//
@@ -60,11 +60,60 @@ console.log("Minimum spanning tree (MST)");
 
 // 1. Implement Prim's algorithm (use code from class and the book).
 
+
+this.prim = function() {
+  var parent = [];
+  var key = [];
+  var visited = [];
+  length = this.graph.length;
+  var i;
+
+  for (i = 0; i < length; i++) {
+    key[i] = INF;
+    visited[i] = false;
+  }
+  key[0] = 0;
+  parent[0] = -1;
+  for (i=0; i < length -1; i++){
+    var u = minKey(key, visited);
+    visited[u] = true;
+    for (var v= 0; v< length; v++) {
+      if (this.graph[u][v] && visited[v] == false && this.graph [u][v] < key[v]) {
+        parent[v] = u;
+        key[v] = this.graph[u][v];
+
+      }
+    }
+  }
+  return parent;
+}
+
+
 // 2. Show that your code works using the example from the book in the minimum
 //    spanning tree section. Print both the edges and the weights that are part
 //    of the minimum spanning tree.
 
+var graph = 
+[[0,2,4,0,0,0],
+[2,0,2,4,2,0], 
+[4,2,0,0,3,0],
+[0,4,0,0,3,2],
+[0,2,3,3,0,2],
+[0,0,0,2,2,0]];
 
+
+function print(a) {
+  var str = "";
+  for(var i = 0; i < a[0].length; i++) {
+  for(var z = 0; z < a.length; z++) {
+    str = str + " " + (a[z][i]);
+  }
+  console.log(str);
+  str = "";
+}
+}
+
+print(graph);
 
 //---------//
 // Project //
