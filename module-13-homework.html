@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>CMPS 260: Module 13 Homework</title>
+<style>* { font-family: monospace; }</style>
+<script>
+//----------------//
+// Big O notation //
+//----------------//
+console.log("Big O notation");
+
+// 1. What is the worst case complexity of the following function?
+
+
+// this grows exponetially
+// O(1)
+
+// P and NP
+
+function hasDuplicates(arr) {
+  for (var i = 0; i < arr.length; i++) {
+    for (var j = 0; j < arr.length; j++) {
+      if (i !== j && arr[i] === arr[j]) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+// 2. Implement a faster version of the same function and analyze the
+//    complexity of this approach.
+
+function hasDuplicatesFast(arr) {
+  // todo
+
+}
+
+
+
+//----------------------------//
+// Having fun with algorithms //
+//----------------------------//
+console.log("Having fun with algorithms");
+
+// 1. Solve http://www.spoj.com/problems/PALIN/
+
+
+
+// needs two functions
+function findSmallestPalindrome(k) {
+  // todo
+  // calls reverse string
+}
+  function reverseString(){
+// step 1: Split() -> return a new array
+var splitString = str.split("");
+  // ex: var team = "pittsburgh".split();
+  // im thinking divide it in half and compare
+  // reverse() string
+  // use join method, joins arrays
+  //return a value
+  }
+  
+
+
+// tests
+//console.log(findSmallestPalindrome(808) === 818);
+//console.log(findSmallestPalindrome(2133) === 2222);
+
+
+
+//---------//
+// Project //
+//---------//
+console.log("Project");
+
+// 1. Solve https://csacademy.com/contest/interview-archive/task/intersecting-rectangles/
+//    What is the runtime complexity of your solution?
+//    HINT: Try to break down the problems into smaller steps. For example,
+//          find a convenient way to represent rectangles and define a function
+//          that tests whether one rectangle is inside another. Then test your
+//          code on just two rectangles first to make sure it works.
+
+
+
+</script>
+</head>
+<body>
+  See console!
+</body>
+</html>
